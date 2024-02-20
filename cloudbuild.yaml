@@ -15,4 +15,3 @@ steps:
 # Store images in Google Artifact Registry 
 images:
   - us-central1-docker.pkg.dev/pub-demo-cb-ar/python-repo/my-app:${SHORT_SHA}
-  - us-central1-docker.pkg.dev/pub-demo-cb-ar/python-repo/my-app:latest
