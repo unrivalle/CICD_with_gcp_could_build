@@ -5,10 +5,6 @@ steps:
             'build',
             '-t',
             'us-central1-docker.pkg.dev/pub-demo-cb-ar/python-repo/my-app:${SHORT_SHA}',
-            '-t',
-            'us-central1-docker.pkg.dev/pub-demo-cb-ar/python-repo/my-app:latest',
-            '--cache-from',
-            'us-central1-docker.pkg.dev/pub-demo-cb-ar/python-repo/my-app:latest',
             '.'
           ]
 
