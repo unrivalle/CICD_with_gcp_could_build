@@ -1,22 +1,9 @@
 steps:
-  # Docker Build
-  - name: 'gcr.io/cloud-builders/docker'
-    args: [
-            'build',
-            '-t',
-            'us-central1-docker.pkg.dev/pub-demo-cb-ar/python-repo/my-app:${SHORT_SHA}',
-            '-t',
-            'us-central1-docker.pkg.dev/pub-demo-cb-ar/python-repo/my-app:latest',
-            '--cache-from',
-            'us-central1-docker.pkg.dev/pub-demo-cb-ar/python-repo/my-app:latest',
-            '.'
-          ]
-
-  # Docker push to Google Artifact Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push',  'us-central1-docker.pkg.dev/pub-demo-cb-ar/python-repo/my-app:${SHORT_SHA}']
-
-# Store images in Google Artifact Registry 
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/myapp:latest', '-t', 'gcr.io/$PROJECT_ID/myapp:$COMMIT_SHA', '-t', 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID', '.']
+  id: 'build-image-myapp'
+  waitFor: ['-']  # The '-' indicates that this step begins immediately.
 images:
-  - us-central1-docker.pkg.dev/pub-demo-cb-ar/python-repo/my-app:${SHORT_SHA}
-  - us-central1-docker.pkg.dev/pub-demo-cb-ar/python-repo/my-app:latest
+- 'gcr.io/$PROJECT_ID/myapp:latest'
+- 'gcr.io/$PROJECT_ID/myapp:$COMMIT_SHA'
+- 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID'
